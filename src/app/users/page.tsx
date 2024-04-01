@@ -1,31 +1,16 @@
 import { User, columns } from "./columns";
 import { DataTable } from "@/components/data-table";
 
-async function getData(): Promise<User[]> {
-  const randomNumber = Math.floor(Math.random() * 100);
-  const gender = Math.random() > 0.5 ? "men" : "women";
-
-  return [
-    {
-      id: "728ed52f",
-      name: "Alex Smith",
-      email: "JS@example.com",
-      image: `https://randomuser.me/api/portraits/${gender}/${randomNumber}.jpg`,
-      lastSeen: "2021-09-09T12:34:56Z",
-    },
-
-    {
-      id: "759jg52f",
-      name: "Chris Brown",
-      email: "CB@example.com",
-      image: `https://randomuser.me/api/portraits/${gender}/${randomNumber}.jpg`,
-      lastSeen: "2021-09-09T12:34:56Z",
-    },
-  ];
+async function getUsers(): Promise<User[]> {
+  const res = await fetch(
+    "https://6609847d0f324a9a2883613c.mockapi.io/api/users"
+  );
+  const data = await res.json();
+  return data;
 }
 
-export default async function DemoPage() {
-  const data = await getData();
+export default async function Page() {
+  const data = await getUsers();
 
   return (
     <section className="py-24">
